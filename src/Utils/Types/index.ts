@@ -19,9 +19,11 @@ interface IPairedQuestionAsnwer {
   nextTocId: string;
 }
 
+type TLookUpMap = Map<number, []>
 
 export {
   ISection,
   IState,
-  IPairedQuestionAsnwer
+  IPairedQuestionAsnwer,
+  TLookUpMap
 }

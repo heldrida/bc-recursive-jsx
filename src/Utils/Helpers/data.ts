@@ -2,7 +2,7 @@ import sections from '../../../data/sections.json'
 import states from '../../../data/states.json'
 import questions_list_1 from '../../../data/44,45,46.json'
 import questions_list_2 from '../../../data/4,5,6,7,8,11,12,15,16,17.json'
-import { ISection } from '../Types'
+import { ISection, TLookUpMap } from '../Types'
 
 
 const getSections = () => sections
@@ -20,7 +20,7 @@ const findRootSection = (): ISection => {
   return topMostParent
 }
 
-const createParentChildLookupMap = () => {
+const createParentChildLookupMap = (): TLookUpMap => {
   const lookupMap = new Map()
   sections.forEach(section => {
     const parentMappedChilds = lookupMap.get(section.parentId)
@@ -33,10 +33,23 @@ const createParentChildLookupMap = () => {
   return lookupMap
 }
 
+const flattenedExpandedState = () => {
+  const states = getStates()
+  const flattened = states.reduce((acc: string[], curr) => {
+    acc = [
+      ...acc,
+      ...curr.expanded
+    ]
+    return acc
+  }, [])
+  return flattened
+}
+
 export {
   getSections,
   getStates,
   getQuestions,
   findRootSection,
-  createParentChildLookupMap
+  createParentChildLookupMap,
+  flattenedExpandedState
 }

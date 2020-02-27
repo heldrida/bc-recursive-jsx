@@ -1,13 +1,9 @@
-import sections from '../../../data/sections.json'
-import states from '../../../data/states.json'
-import questions_list_1 from '../../../data/44,45,46.json'
-import questions_list_2 from '../../../data/4,5,6,7,8,11,12,15,16,17.json'
-import { findRootSection, createParentChildLookupMap } from '../Helpers/data'
+import { findRootSection, createParentChildLookupMap, getSections, getStates, getQuestions, flattenedExpandedState } from '../Helpers/data'
 
 describe('The data files', () => {
   it('should load all data files', () => {
-    const dataFiles = [sections, states, questions_list_1, questions_list_2]
-    expect(dataFiles.length).toBe(4)
+    const dataFiles = [getSections(), getStates(), getQuestions()]
+    expect(dataFiles.length).toBe(3)
     dataFiles.forEach(filename => expect(filename.length).toBeTruthy())
   })
 
@@ -32,5 +28,13 @@ describe('The data files', () => {
       children: [45, 46]
     }]
     expected.forEach(item => expect(lookupMap.get(item.parent)).toEqual(item.children))
+  })
+
+  it('should map all the expanded state', () => {
+    const expected = ['1433932431217_Toc411861208', '1433932431217_Toc411861211',
+                      '1433932431217_Toc411861208', '1433932431217_Toc411861217',
+                      '1433932431217_Toc411861217', '1433932435017_Toc402171630',
+                      '1433932435017_Toc402171633']
+    expect(flattenedExpandedState()).toEqual(expected)
   })
 })
