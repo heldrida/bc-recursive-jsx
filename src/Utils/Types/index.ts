@@ -21,9 +21,12 @@ interface IPairedQuestionAsnwer {
 
 type TLookUpMap = Map<number, []>
 
+type TCreateParentChildLookupMapCallback = ((section: any) => string) | undefined
+
 export {
   ISection,
   IState,
   IPairedQuestionAsnwer,
-  TLookUpMap
+  TLookUpMap,
+  TCreateParentChildLookupMapCallback
 }
