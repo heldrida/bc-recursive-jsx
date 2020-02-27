@@ -1,14 +1,14 @@
-interface ISections {
+interface ISection {
   id: number;
   title: string;
   parentId: number;
 }
 
-interface IStates {
+interface IState {
   expanded?: (string)[] | null;
 }
 
-export interface IPairedQuestionAsnwers {
+interface IPairedQuestionAsnwer {
   qa_id: number;
   question: string;
   answer: string;
@@ -21,7 +21,7 @@ export interface IPairedQuestionAsnwers {
 
 
 export {
-  ISections,
-  IStates,
-  IPairedQuestionAsnwers
+  ISection,
+  IState,
+  IPairedQuestionAsnwer
 }
