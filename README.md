@@ -1,27 +1,25 @@
-### Set up
 
-(Tested with Node v10.10)
+  ## B.C. Challenge
 
-```
-npm install
-npm start
-```
+  Provided a list of JSON files in the /data directory, create a content view page.
+  
+  The files are text JSON and are provided as:
+    - sections
+    - questions (by numbered values in the filename)
+    - a list of view states
+  
+  Expected to load the initial data from all the files and present a list of sections and questions.
+  The questions remain collapsed unless listed otherwise in the initial state provided.
+  A CTA button to expand/collapse by triggering the state of each item.
 
-### Task
+  Following up a few notes regarding the requirements to run the application, which assumes you already
+  have installed node (>=10.16.0) and your favourite package manager (substitute to `npm`, where `yarn`).
 
-To test your programming skill, we'd like you to have a go at a small task.
+  To start:
 
-We have provided you with four JSON files (in /data). These files provide you with a table of contents (sections.json), questions (/[\d]+(,[\d]+)+/.json), and a list of view states (states.json). Your task is to use this data to produce a content view page.
+  ## yarn install
 
-You should start with loading data from all four files. The view should display sections and questions altogether and the content tree hierarchy should be easy to read. All questions should remain collapsed unless their tocId is on expanded list.
+  Run the tests by:
 
-The starting state should leave all questions collapsed and the UI should include a button allowing to cycle through the view states list.
+  ## yarn test
 
-
-Some things to note:
-* Your solution should work in any modern browser, but you don't need to worry about making it fully cross browser or supporting older browsers.
-* The root of the sections tree has id -1.
-* Simplicity is key.
-* Remember to make use of the app states provided.
-* There's no need to make requests to load data, keep it static.
-* You can use this file to list any improvements you didn't have time to implement.
