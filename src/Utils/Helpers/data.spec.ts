@@ -1,4 +1,12 @@
-import { findRootSection, createParentChildLookupMap, getSections, getStates, getQuestions, flattenedExpandedState, idHandler } from '../Helpers/data'
+import { 
+  findRootSection,
+  createParentChildLookupMap,
+  getSections,
+  getStates,
+  getQuestions,
+  flattenedExpandedState,
+  idHandler,
+  setCustomSectionProperties } from '../Helpers/data'
 
 describe('The data files', () => {
   it('should load all data files', () => {
@@ -38,6 +46,15 @@ describe('The data files', () => {
       children: [`${mockPrefix} ${1}`, `${mockPrefix} ${41}`]
     }]
     expected.forEach(item => expect(lookupMap.get(idHandler(item.parent))).toEqual(item.children))
+  })
+
+  it('should have a callback that manipulates the section properties to our desired output', () => {
+    const sections = getSections()
+    ;[5, 16, 45].forEach((id: number) => {
+      const section = sections.find(item => item.id === id)
+      const computedSection = section && setCustomSectionProperties(section)
+      computedSection && expect(computedSection[0]).toHaveProperty('collapsed', id !== 5)
+    })
   })
 
   it('should map all the expanded state', () => {

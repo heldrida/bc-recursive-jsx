@@ -2,7 +2,7 @@ import sections from '../../../data/sections.json'
 import states from '../../../data/states.json'
 import questions_list_1 from '../../../data/44,45,46.json'
 import questions_list_2 from '../../../data/4,5,6,7,8,11,12,15,16,17.json'
-import { ISection, TLookUpMap, TCreateParentChildLookupMapCallback } from '../Types'
+import { ISection, TLookUpMap, TCreateParentChildLookupMapCallback, ICustomSectionProps, IPairedQuestionAsnwer } from '../Types'
 import { NS_SECTION_PARENT } from '../Constants'
 
 const getSections = () => sections
@@ -37,6 +37,26 @@ const createParentChildLookupMap = (cb?: TCreateParentChildLookupMapCallback): T
   return lookupMap
 }
 
+const setCustomSectionProperties = (section: ISection): ICustomSectionProps[] => {
+  const flattendedExpandedStates = flattenedExpandedState()
+  const pairedQuestionAsnwer = getQuestions()
+
+  const list = pairedQuestionAsnwer.reduce((list: ICustomSectionProps[], item: IPairedQuestionAsnwer): ICustomSectionProps[] => {
+    if (item.sectionId === section.id) {
+      list = [
+        ...list,
+        {
+          ...item,
+          collapsed: !flattendedExpandedStates.includes(item.tocId)
+        }
+      ]
+    }
+    return list
+  }, ([] as ICustomSectionProps[]))
+
+  return list
+}
+
 const flattenedExpandedState = () => {
   const states = getStates()
   const flattened = states.reduce((acc: string[], curr) => {
@@ -56,5 +76,6 @@ export {
   findRootSection,
   createParentChildLookupMap,
   flattenedExpandedState,
-  idHandler
+  idHandler,
+  setCustomSectionProperties
 }

@@ -19,6 +19,10 @@ interface IPairedQuestionAsnwer {
   nextTocId: string;
 }
 
+interface ICustomSectionProps extends IPairedQuestionAsnwer {
+  collapsed: boolean
+}
+
 type TLookUpMap = Map<number, []>
 
 type TCreateParentChildLookupMapCallback = ((section: any) => string) | undefined
@@ -28,5 +32,6 @@ export {
   IState,
   IPairedQuestionAsnwer,
   TLookUpMap,
-  TCreateParentChildLookupMapCallback
+  TCreateParentChildLookupMapCallback,
+  ICustomSectionProps
 }
