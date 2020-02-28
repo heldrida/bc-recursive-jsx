@@ -1,12 +1,13 @@
 import React from 'react'
 import QuestionContainer from '../QuestionContainer'
 import { SectionItemContainer} from './styled'
+import { IChildNodesEntity } from '../../Utils/Types'
 
-const SectionItem = ({list}: {list: any}) => {
+const SectionItem = ({list}: {list: IChildNodesEntity}) => {
   return (
     <SectionItemContainer>
       <h2>{list && list.title}</h2>
-      {list.childNodes.map((nestedList: any, key: number) =>
+      {list && list.childNodes.map((nestedList: any, key: number) =>
         <div key={key}>
           {
            nestedList.questionAnswer &&
