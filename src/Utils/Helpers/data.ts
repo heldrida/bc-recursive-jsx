@@ -2,7 +2,7 @@ import sections from '../../../data/sections.json'
 import states from '../../../data/states.json'
 import questions_list_1 from '../../../data/44,45,46.json'
 import questions_list_2 from '../../../data/4,5,6,7,8,11,12,15,16,17.json'
-import { ISection, TLookUpMap, TCreateParentChildLookupMapCallback, ICustomSectionProps, IPairedQuestionAsnwer } from '../Types'
+import { ISection, ICustomSectionProps, IPairedQuestionAsnwer } from '../Types'
 import { NS_SECTION_PARENT } from '../Constants'
 
 const getSections = () => sections
