@@ -23,3 +23,7 @@
 
   ## yarn test
 
+
+  Note: This project demonstrates how to do recursion in JSX (there is also a recursive helper fn that prepares
+  the data)
+  
