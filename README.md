@@ -1,5 +1,5 @@
 
-  ## B.C. Challenge
+  ## B.C.
 
   Provided a list of JSON files in the /data directory, create a content view page.
   
@@ -26,4 +26,3 @@
 
   Note: This project demonstrates how to do recursion in JSX (there is also a recursive helper fn that prepares
   the data)
-  
