@@ -60,7 +60,7 @@ const createHierarchicalList = (sections: ISection[]) => {
       acc = {
         ...section,
         childNodes: childNodes.map(node => {
-          return childNodes && handler(sections, node, {})
+          return node && handler(sections, node, {})
         })
       }
     } else {
