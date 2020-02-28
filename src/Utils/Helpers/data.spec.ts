@@ -1,12 +1,12 @@
 import { 
   findRootSection,
-  createParentChildLookupMap,
   getSections,
   getStates,
   getQuestions,
   flattenedExpandedState,
-  idHandler,
-  setCustomSectionProperties } from '../Helpers/data'
+  setCustomSectionProperties,
+  createHierarchicalList } from '../Helpers/data'
+import hierarchicalListMock from '../Mocks/hierarchicalList.json'
 
 describe('The data files', () => {
   it('should load all data files', () => {
@@ -19,33 +19,6 @@ describe('The data files', () => {
     const section = findRootSection()
     const expectedTitle = 'chapters'
     expect(section.title.toLowerCase()).toEqual(expectedTitle)
-  })
-
-  it('should map the sections by hierarchy to minimize number of computations per request', () => {
-    const lookupMap = createParentChildLookupMap()
-    const expected = [{
-      parent: idHandler(-1),
-      children: [1, 41]
-    },
-    {
-      parent: idHandler(4),
-      children: [5, 6]
-    },
-    {
-      parent: idHandler(44),
-      children: [45, 46]
-    }]
-    expected.forEach(item => expect(lookupMap.get(idHandler(item.parent))).toEqual(item.children))
-  })
-
-  it('should the lookup map, accept a callback for further computation if required', () => {
-    const mockPrefix = 'child is'
-    const lookupMap = createParentChildLookupMap((section) => `${mockPrefix} ${section.id}`)
-    const expected = [{
-      parent: idHandler(-1),
-      children: [`${mockPrefix} ${1}`, `${mockPrefix} ${41}`]
-    }]
-    expected.forEach(item => expect(lookupMap.get(idHandler(item.parent))).toEqual(item.children))
   })
 
   it('should have a callback that manipulates the section properties to our desired output', () => {
@@ -63,5 +36,11 @@ describe('The data files', () => {
                       '1433932431217_Toc411861217', '1433932435017_Toc402171630',
                       '1433932435017_Toc402171633']
     expect(flattenedExpandedState()).toEqual(expected)
+  })
+
+  it('should create hierarchical list', () => {
+    const sections = getSections()
+    const hierarchicalList = createHierarchicalList(sections)
+    expect(hierarchicalList).toEqual(hierarchicalListMock)
   })
 })

@@ -2,6 +2,7 @@ interface ISection {
   id: number;
   title: string;
   parentId: number;
+  childNodes?: ISection[]
 }
 
 interface IState {
@@ -23,9 +24,9 @@ interface ICustomSectionProps extends IPairedQuestionAsnwer {
   collapsed: boolean
 }
 
-type TLookUpMap = Map<number, []>
+type TLookUpMap = Map<number, IPairedQuestionAsnwer[]>
 
-type TCreateParentChildLookupMapCallback = ((section: any) => string) | undefined
+type TCreateParentChildLookupMapCallback = (section: any) => ICustomSectionProps[] | string
 
 export {
   ISection,

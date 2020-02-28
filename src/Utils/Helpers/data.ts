@@ -9,6 +9,8 @@ const getSections = () => sections
 const getStates = () => states
 const getQuestions = () => [...questions_list_1, ...questions_list_2]
 
+const questions = getQuestions()
+
 const sortSectionsById = (): ISection[] => {
   const sortedSections = [...sections].sort((a, b) => a.id < b.id ? -1 : 1)
   return sortedSections
@@ -20,21 +22,6 @@ const findRootSection = (): ISection => {
   const sortedSections = sortSectionsById()
   const topMostParent = sortedSections[0]
   return topMostParent
-}
-
-const sectionCallbackHandler = (section: ISection, cb: TCreateParentChildLookupMapCallback) => typeof cb === 'function' ? cb(section) : idHandler(section.id)
-
-const createParentChildLookupMap = (cb?: TCreateParentChildLookupMapCallback): TLookUpMap => {
-  const lookupMap = new Map()
-  sections.forEach(section => {
-    const parentMappedChilds = lookupMap.get(idHandler(section.parentId))
-    if (!parentMappedChilds) {
-      lookupMap.set(idHandler(section.parentId), [sectionCallbackHandler(section, cb)])
-    } else {
-      lookupMap.set(idHandler(section.parentId), [...parentMappedChilds, sectionCallbackHandler(section, cb)])
-    }
-  })
-  return lookupMap
 }
 
 const setCustomSectionProperties = (section: ISection): ICustomSectionProps[] => {
@@ -69,13 +56,47 @@ const flattenedExpandedState = () => {
   return flattened
 }
 
+const createHierarchicalList = (sections: ISection[]) => {
+  const handler = (sections: ISection[], section: ISection, acc: {}) => {
+    const childNodes = sections.filter(item => item.parentId === section.id)
+    if (childNodes && Array.isArray(childNodes) && childNodes.length > 0) {
+      acc = {
+        ...section,
+        childNodes: childNodes.map(node => {
+          return childNodes && handler(sections, node, {})
+        })
+      }
+    } else {
+      acc = {
+        ...section,
+        childNodes: false
+      }
+    }
+
+    const questionAnswer = questions.filter(question => question.sectionId === section.id)
+    if (questionAnswer && questionAnswer.length > 0) {
+      acc = {
+        ...acc,
+        questionAnswer: setCustomSectionProperties(section)
+      }
+    }
+
+    return acc
+  }
+
+  const topMostParentSection = findRootSection()
+  const hierarchicalList = handler(sections, topMostParentSection, {})
+
+  return hierarchicalList
+}
+
 export {
   getSections,
   getStates,
   getQuestions,
   findRootSection,
-  createParentChildLookupMap,
   flattenedExpandedState,
   idHandler,
-  setCustomSectionProperties
+  setCustomSectionProperties,
+  createHierarchicalList
 }
