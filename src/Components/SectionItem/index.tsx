@@ -1,24 +1,24 @@
 import React from 'react'
 import QuestionContainer from '../QuestionContainer'
+import { SectionItemContainer} from './styled'
 
 const SectionItem = ({list}: {list: any}) => {
   return (
-    <div>
-      <h3>{list && list.title}</h3>
+    <SectionItemContainer>
+      <h2>{list && list.title}</h2>
       {list.childNodes.map((nestedList: any, key: number) =>
         <div key={key}>
-          <span>{nestedList.title}</span>
-          {nestedList.childNodes && <SectionItem list={nestedList}/>}
           {
            nestedList.questionAnswer &&
            nestedList.questionAnswer.map((item: any, key: number) =>
-            item.question &&
-            item.answer &&
-            <QuestionContainer key={key} question={item.question} answer={item.answer} collapsed={item.collapsed} />)
+              item.question &&
+              item.answer &&
+              <QuestionContainer key={key} question={item.question} answer={item.answer} collapsed={item.collapsed} />)
           }
+          {nestedList.childNodes && <SectionItem list={nestedList}/>}
         </div>
       )}
-    </div>
+    </SectionItemContainer>
   )
 }
 

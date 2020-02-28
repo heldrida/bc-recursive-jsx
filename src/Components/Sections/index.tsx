@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getSections, createHierarchicalList } from '../../Utils/Helpers/data'
 import SectionItem from '../SectionItem'
-
+import { SectionContainer } from './styled'
 
 const Sections = () => {
   const [hierarchicalList, setHierarchicalList] = useState<{[prop: string]: any} | undefined>(undefined)
@@ -13,13 +13,13 @@ const Sections = () => {
   }, [])
 
   return (
-    <div>
+    <SectionContainer>
       {
         hierarchicalList &&
         hierarchicalList.hasOwnProperty('childNodes') &&
         <SectionItem list={hierarchicalList} />
       }
-    </div>
+    </SectionContainer>
   )
 }
 

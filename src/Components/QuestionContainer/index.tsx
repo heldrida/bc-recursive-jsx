@@ -8,7 +8,7 @@ const QuestionContainer = ({question, answer, collapsed}:{question: string, answ
 
   return (
     <div>
-      <div data-name='question' dangerouslySetInnerHTML={{__html: sanitizeHtml(question)}} />
+      <h4 data-name='question' dangerouslySetInnerHTML={{__html: sanitizeHtml(question)}} />
       {
         showAnswer && <div data-name='answer' dangerouslySetInnerHTML={{__html: sanitizeHtml(answer)}} />
       }
